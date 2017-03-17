@@ -26,13 +26,22 @@ module.exports = {
     var self = this;
     var moduleClasses = [];
 
-    this.classes.forEach(function(c) {
-      if(c.module === self.name) {
-        moduleClasses.push(c);
-      }
-    });
+    if(this.moduleClasses) {
+      this.classes.forEach(function (c) {
+        var found = self.moduleClasses.find(function (itm) {
+          return c.name === itm.name;
+        });
 
+        if(found) {
+          moduleClasses.push(c);
+        }
+      });
+    }
     this.filteredModuleClasses = moduleClasses;
+
+    if(this.category) {
+      this.docOnly = this.category.indexOf('docs') > -1;
+    }
   },
 
   isPrivate: function(context, options) {
@@ -189,7 +198,7 @@ module.exports = {
   forwardToIndexModule: function() {
     return '<script type="text/javascript">' +
               'window.location.replace("modules/' + this.projectIndexModule + '.html");' +
-           '</script>'
+           '</script>';
   }
 };
 
@@ -206,7 +215,7 @@ function isPublic(context) {
 }
 
 function getFileMeta(file) {
-  var externalMeta = getExternalFileMeta(file)
+  var externalMeta = getExternalFileMeta(file);
 
   if (externalMeta) {
     return {

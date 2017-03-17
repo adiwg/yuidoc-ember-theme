@@ -31,9 +31,11 @@
     {{/if}}
 
     {{#if foundAt}}
-        <div class="foundat">
-            Defined in: <a href="{{githubFoundAt}}">{{fileName}}:{{{line}}}</a>
-        </div>
+        {{#unless docOnly}}
+            <div class="foundat">
+                Defined in: <a href="{{githubFoundAt}}">{{fileName}}:{{{line}}}</a>
+            </div>
+        {{/unless}}
     {{/if}}
 
     {{#if since}}
