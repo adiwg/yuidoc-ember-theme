@@ -1,15 +1,17 @@
 {
-  "name": "yuidoc-ember-theme",
+  "name": "yuidoc-mdeditor-theme",
   "version": "1.3.0",
-  "description": "YUIDoc theme for ember addons",
+  "description": "YUIDoc theme for mdEditor, forked from yuidoc-ember-theme",
   "repository": {
     "type": "git",
-    "url": "git://github.com/offirgolan/yuidoc-ember-theme.git"
+    "url": "https://github.com/adiwg/yuidoc-mdeditor-theme.git"
   },
   "keywords": [
-    "yuidoc"
+    "yuidoc",
+    "mdEditor"
   ],
   "author": {
-    "name": "Offir Golan"
+    "name": "Offir Golan",
+    "name": "Josh Bradley"
   }
 }
