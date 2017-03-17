@@ -132,6 +132,7 @@ input.search-query:focus {
 }
 code {
     color: #636363;
+    background-color: #f2f5f9;
 }
 ul.inline> li, ol.inline> li {
     padding: 0 !important;
