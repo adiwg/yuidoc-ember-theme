@@ -1,19 +1,20 @@
-# YUIDoc Ember Theme
+# YUIDoc mdEditor Theme
 
 [![npm version](https://badge.fury.io/js/yuidoc-ember-theme.svg)](http://badge.fury.io/js/yuidoc-ember-theme)
 
 An EmberJS based [YUIDoc](http://yui.github.io/yuidoc/) theme
 
-[**Live Example**](http://offirgolan.github.io/ember-cp-validations/docs)
+[**Live Example**](http://www.adiwg.org/mdEditor/docs/)
 
 ```sh
-$ npm install yuidoc-ember-theme
+$ npm install yuidoc-mdeditor-theme
 ```
 
 ## Notes
 
 - This theme is to be used with [ember-cli-yuidoc](https://github.com/cibernox/ember-cli-yuidoc) which uses
 [git-repo-version](https://github.com/cibernox/git-repo-version) to generate the project version.
+- This theme was originally forked from [offirgolan/yuidoc-ember-theme](https://github.com/offirgolan/yuidoc-ember-theme)
 
 ### Configuration File
 
