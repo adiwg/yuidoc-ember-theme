@@ -1,6 +1,6 @@
 # YUIDoc mdEditor Theme
 
-[![npm version](https://badge.fury.io/js/yuidoc-ember-theme.svg)](http://badge.fury.io/js/yuidoc-ember-theme)
+[![npm version](https://badge.fury.io/js/yuidoc-mdeditor-theme.svg)](https://badge.fury.io/js/yuidoc-mdeditor-theme)
 
 An EmberJS based [YUIDoc](http://yui.github.io/yuidoc/) theme
 
