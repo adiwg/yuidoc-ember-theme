@@ -4,7 +4,7 @@
   "description": "YUIDoc theme for mdEditor, forked from yuidoc-ember-theme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/adiwg/yuidoc-mdeditor-theme.git"
+    "url": "git+https://github.com/adiwg/yuidoc-mdeditor-theme.git"
   },
   "keywords": [
     "yuidoc",
