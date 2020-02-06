@@ -1,9 +1,21 @@
+{{setupProperty}}
+
 <div id="property_{{name}}" class="property item{{#if access}} {{access}}{{/if}}{{#if deprecated}} deprecated{{/if}}{{#if extended_from}} inherited{{/if}}">
     <h3 class="name anchorable-toc">
         <a class="fa fa-link toc-anchor" href="#property_{{name}}"></a>
         {{name}}
     </h3>
     <span class="type">{{#crossLink type}}{{/crossLink}}</span>
+
+    {{#if computed}}
+        <span class="flag required">computed
+          {{#if requires}}(
+            {{#requires}}
+            <span class="computed">{{.}}</span>
+            {{/requires}}
+          {{/if}})
+        </span>
+    {{/if}}
 
     {{#if deprecated}}
         <span class="flag deprecated"{{#if deprecationMessage}} title="{{deprecationMessage}}"{{/if}}>deprecated</span>

@@ -1,17 +1,28 @@
 var PROJECT;
 
 module.exports = {
-  log: function() {
-    var slicedArgs = Array.prototype.slice.call(arguments, 0, arguments.length - 1);
+  log: function () {
+    var slicedArgs = Array.prototype.slice.call(arguments, 0, arguments
+      .length - 1);
     console.log.apply(console, slicedArgs);
   },
 
-  setupGlobals: function() {
+  setupClassNames: function () {
+    this.classes.forEach(function (c) {
+      c.displayName = c.name.replace('--', '/');
+    });
+  },
+
+  replaceWith: function (str, target, replace) {
+    return str.replace(target, replace);
+  },
+
+  setupGlobals: function () {
     PROJECT = this;
     return '';
   },
 
-  setupClass: function() {
+  setupClass: function () {
     var classes = this.classes;
 
     for(var i = 0; i < classes.length; i++) {
@@ -22,7 +33,15 @@ module.exports = {
     }
   },
 
-  setupModule: function() {
+  setupProperty: function () {
+    var category = this.category;
+
+    if(this.category) {
+      this.computed = this.category.indexOf('computed') > -1;
+    }
+  },
+
+  setupModule: function () {
     var self = this;
     var moduleClasses = [];
 
@@ -44,16 +63,16 @@ module.exports = {
     }
   },
 
-  isPrivate: function(context, options) {
+  isPrivate: function (context, options) {
     return isPublic(context) ? options.inverse(this) : options.fn(this);
   },
 
-  publicClasses: function(context, options) {
+  publicClasses: function (context, options) {
     'use strict';
     var ret = "";
 
-    for (var i = 0; i < context.length; i++) {
-      if (isPublic(context[i])) {
+    for(var i = 0; i < context.length; i++) {
+      if(isPublic(context[i])) {
         ret = ret + options.fn(context[i]);
       }
     }
@@ -68,14 +87,14 @@ module.exports = {
    * Usage:
    *   {{#crossLinkWrapper type}}{{#crossLink type}}{{/crossLink}}{{/crossLinkWrapper}}
    */
-  crossLinkWrapper: function(context, options) {
-    if (!context) return '';
+  crossLinkWrapper: function (context, options) {
+    if(!context) return '';
     var types_raw = context.split('|');
     var types_linked = options.fn(this).split('|');
 
-    return types_raw.map(function(type, i) {
-      if (/\[\]/.test(type)) {
-        if (/<\/a>/.test(types_linked[i])) {
+    return types_raw.map(function (type, i) {
+      if(/\[\]/.test(type)) {
+        if(/<\/a>/.test(types_linked[i])) {
           return types_linked[i].replace('</a>', '[]</a>');
         } else {
           return types_linked[i].trim() + '[]';
@@ -86,65 +105,66 @@ module.exports = {
     }).join(' | ');
   },
 
-  notEmpty: function(context, options) {
+  notEmpty: function (context, options) {
     'use strict';
 
     if(context && Array.isArray(context)) {
       return context.length > 0 ? options.fn(this) : options.inverse(this);
     } else {
-      return (!context || !String(context).replace(/\s/g, '')) ? options.inverse(this) : options.fn(this);
+      return (!context || !String(context).replace(/\s/g, '')) ? options
+        .inverse(this) : options.fn(this);
     }
   },
 
-  hasStaticMethods: function(context, options) {
+  hasStaticMethods: function (context, options) {
     'use strict';
     var hasStatic = false;
-    if (!context) return '';
-    for (var i = 0; i < context.length; i++) {
-      if (context[i]['static']) {
+    if(!context) return '';
+    for(var i = 0; i < context.length; i++) {
+      if(context[i]['static']) {
         hasStatic = true;
         break;
       }
     }
-    if (hasStatic) {
+    if(hasStatic) {
       return options.fn(this);
     }
     return '';
   },
 
-  hasInstanceMethods: function(context, options) {
+  hasInstanceMethods: function (context, options) {
     'use strict';
     var hasInstance = false;
-    if (!context) return '';
-    for (var i = 0; i < context.length; i++) {
-      if (!context[i]['static']) {
+    if(!context) return '';
+    for(var i = 0; i < context.length; i++) {
+      if(!context[i]['static']) {
         hasInstance = true;
         break;
       }
     }
-    if (hasInstance) {
+    if(hasInstance) {
       return options.fn(this);
     }
     return '';
   },
 
-  search: function(classes, modules) {
+  search: function (classes, modules) {
     'use strict';
     var ret = '';
 
-    for (var i = 0; i < classes.length; i++) {
-      if (i > 0) {
+    for(var i = 0; i < classes.length; i++) {
+      if(i > 0) {
         ret += ', ';
       }
       ret += "\"" + 'classes/' + classes[i].displayName + "\"";
     }
 
-    if (ret.length > 0 && modules.length > 0) {
+    if(ret.length > 0 && modules.length > 0) {
       ret += ', ';
     }
 
-    for (var j = 0; j < modules.length; j++) {
-      if (j > 0) {
+    for(var j = 0; j < modules.length; j++) {
+      if(j > 0) {
         ret += ', ';
       }
       ret += "\"" + 'modules/' + modules[j].displayName + "\"";
@@ -153,14 +173,14 @@ module.exports = {
     return ret;
   },
 
-  or: function(a, b, options) {
+  or: function (a, b, options) {
     if(a || b) {
       return options.fn(this);
     }
     return '';
   },
 
-  eq: function(v1, v2, options) {
+  eq: function (v1, v2, options) {
     if(v1 == v2) {
       return options.fn(this);
     } else {
@@ -168,7 +188,7 @@ module.exports = {
     }
   },
 
-  deEmberifiedName: function() {
+  deEmberifiedName: function () {
     var name = this.projectName || '';
 
     var delimiter = name.indexOf('-') > -1 ? '-' : ' ';
@@ -181,29 +201,31 @@ module.exports = {
     return name;
   },
 
-  projectTag: function() {
+  projectTag: function () {
     return getTagFromVersion(PROJECT.projectVersion);
   },
 
-  githubFoundAt: function() {
+  githubFoundAt: function () {
     var meta = getFileMeta(this.file);
     return generateGhFileUrl(meta.url, meta.version, meta.file, this.line);
   },
 
-  fileName: function() {
+  fileName: function () {
     var meta = getExternalFileMeta(this.file);
-    return meta ? this.file.replace(new RegExp(meta.path, 'i'), meta.name) : this.file;
+    return meta ? this.file.replace(new RegExp(meta.path, 'i'), meta.name) :
+      this.file;
   },
 
-  forwardToIndexModule: function() {
+  forwardToIndexModule: function () {
     return '<script type="text/javascript">' +
-              'window.location.replace("modules/' + this.projectIndexModule + '.html");' +
-           '</script>';
+      'window.location.replace("modules/' + this.projectIndexModule +
+      '.html");' +
+      '</script>';
   }
 };
 
 function getTagFromVersion(version) {
-  if (version === 'master' || version.charAt(0).toLowerCase() === 'v') {
+  if(version === 'master' || version.charAt(0).toLowerCase() === 'v') {
     return version;
   } else {
     return version.split('.').pop();
@@ -217,7 +239,7 @@ function isPublic(context) {
 function getFileMeta(file) {
   var externalMeta = getExternalFileMeta(file);
 
-  if (externalMeta) {
+  if(externalMeta) {
     return {
       file: file.replace(new RegExp(externalMeta.path, 'i'), ''),
       version: getTagFromVersion(externalMeta.version),
@@ -235,7 +257,7 @@ function getFileMeta(file) {
 function getExternalFileMeta(file) {
   var externalDocs = PROJECT.projectExternalDocs || [];
 
-  return externalDocs.find(function(externalDoc) {
+  return externalDocs.find(function (externalDoc) {
     return !!(file || '').match(new RegExp(externalDoc.path, 'i'));
   });
 }

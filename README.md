@@ -16,6 +16,33 @@ $ npm install yuidoc-mdeditor-theme
 [git-repo-version](https://github.com/cibernox/git-repo-version) to generate the project version.
 - This theme was originally forked from [offirgolan/yuidoc-ember-theme](https://github.com/offirgolan/yuidoc-ember-theme)
 
+## Extensions to the YUIDoc Features
+
+### Computed properties
+
+Use `@category computed` and `@required`
+ 
+   ```javascript
+  /**
+   * A computed value
+   *
+   * @property something
+   * @type {Object}
+   * @category computed
+   * @required foo,bar
+   */   
+   ``` 
+### Class names with slashes
+
+Use `--` to represent `/`:
+
+   ```javascript
+  /**
+   * @class md-indicator--related
+   * @extend md-indicator
+   */ 
+   ``` 
+   
 ### Configuration File
 
 If your project uses a "yuidoc.json" file for configuration, add:
